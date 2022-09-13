@@ -12,4 +12,5 @@ WORKDIR /app
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /build/mev-boost /app/mev-boost
 EXPOSE 18550
+HEALTHCHECK CMD  wget --no-verbose --tries=1 --spider http://localhost:18550/eth/v1/builder/status || exit 1
 ENTRYPOINT ["/app/mev-boost"]
